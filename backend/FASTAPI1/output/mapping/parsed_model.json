@@ -1,0 +1,871 @@
+{
+  "tables": [
+    {
+      "name": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "columns": [
+        {
+          "name": "Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MonthNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Month",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "QuarterNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quarter",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Day",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": null,
+      "source_type": null,
+      "is_calculated_table": true,
+      "calculated_table_dax": "Calendar(Date(2015,1,1), Date(2015,1,1))"
+    },
+    {
+      "name": "Dept",
+      "columns": [
+        {
+          "name": "DEPTNO",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "DNAME",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "LOC",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\EmpDept.xlsx\"), null, true),\n    Dept_Sheet = Source{[Item=\"Dept\",Kind=\"Sheet\"]}[Data],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Dept_Sheet, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"DEPTNO\", Int64.Type}, {\"DNAME\", type text}, {\"LOC\", type text}}),\n    #\"Merged Queries\" = Table.NestedJoin(#\"Changed Type\", {\"DEPTNO\"}, Emp, {\"DEPTNO\"}, \"Emp\", JoinKind.LeftOuter)\nin\n    #\"Merged Queries\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "Emp",
+      "columns": [
+        {
+          "name": "EMPNO",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "ENAME",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "JOB",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MGR",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "HIREDATE",
+          "data_type": "datetime64[ns]",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "SAL",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "COMM",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "DEPTNO",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\EmpDept.xlsx\"), null, true),\n    Emp_Sheet = Source{[Item=\"Emp\",Kind=\"Sheet\"]}[Data],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Emp_Sheet, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"EMPNO\", Int64.Type}, {\"ENAME\", type text}, {\"JOB\", type text}, {\"MGR\", Int64.Type}, {\"HIREDATE\", type date}, {\"SAL\", Int64.Type}, {\"COMM\", Int64.Type}, {\"DEPTNO\", Int64.Type}})\nin\n    #\"Changed Type\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "JobBlank",
+      "columns": [
+        {
+          "name": "EMPNO",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "ENAME",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "JOB",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MGR",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "HIREDATE",
+          "data_type": "datetime64[ns]",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "SAL",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "COMM",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "DEPTNO",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\EmpDept.xlsx\"), null, true),\n    JobBlank_Sheet = Source{[Item=\"JobBlank\",Kind=\"Sheet\"]}[Data],\n    #\"Promoted Headers\" = Table.PromoteHeaders(JobBlank_Sheet, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"EMPNO\", Int64.Type}, {\"ENAME\", type text}, {\"JOB\", type text}, {\"MGR\", Int64.Type}, {\"HIREDATE\", type date}, {\"SAL\", Int64.Type}, {\"COMM\", Int64.Type}, {\"DEPTNO\", Int64.Type}})\nin\n    #\"Changed Type\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "columns": [
+        {
+          "name": "Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MonthNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Month",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "QuarterNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quarter",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Day",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": null,
+      "source_type": null,
+      "is_calculated_table": true,
+      "calculated_table_dax": "Calendar(Date(Year(MIN('Orders'[Order Date])), 1, 1), Date(Year(MAX('Orders'[Order Date])), 12, 31))"
+    },
+    {
+      "name": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "columns": [
+        {
+          "name": "Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MonthNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Month",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "QuarterNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quarter",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Day",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": null,
+      "source_type": null,
+      "is_calculated_table": true,
+      "calculated_table_dax": "Calendar(Date(Year(MIN('Orders'[Ship Date])), 1, 1), Date(Year(MAX('Orders'[Ship Date])), 12, 31))"
+    },
+    {
+      "name": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "columns": [
+        {
+          "name": "Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MonthNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Month",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "QuarterNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quarter",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Day",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": null,
+      "source_type": null,
+      "is_calculated_table": true,
+      "calculated_table_dax": "Calendar(Date(Year(MIN('Emp'[HIREDATE])), 1, 1), Date(Year(MAX('Emp'[HIREDATE])), 12, 31))"
+    },
+    {
+      "name": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "columns": [
+        {
+          "name": "Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MonthNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Month",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "QuarterNo",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quarter",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Day",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": null,
+      "source_type": null,
+      "is_calculated_table": true,
+      "calculated_table_dax": "Calendar(Date(Year(MIN('JobBlank'[HIREDATE])), 1, 1), Date(Year(MAX('JobBlank'[HIREDATE])), 12, 31))"
+    },
+    {
+      "name": "Manager",
+      "columns": [
+        {
+          "name": "MGR",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "MGRNAME",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\EmpDept.xlsx\"), null, true),\n    Manager_Sheet = Source{[Item=\"Manager\",Kind=\"Sheet\"]}[Data],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Manager_Sheet, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"MGR\", Int64.Type}, {\"MGRNAME\", type text}})\nin\n    #\"Changed Type\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "Orders",
+      "columns": [
+        {
+          "name": "Row ID",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order ID",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order Date",
+          "data_type": "datetime64[ns]",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Ship Date",
+          "data_type": "datetime64[ns]",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Ship Mode",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Customer ID",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Customer Name",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Segment",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Country",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "City",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "State",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Postal Code",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Region",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Product ID",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Category",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Sub-Category",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Product Name",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Sales",
+          "data_type": "Float64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Quantity",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Discount",
+          "data_type": "Float64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Profit",
+          "data_type": "Float64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Returned",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Adress",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "C & S_C",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order_Month",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order_Month Name",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order_Year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "ship month",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Ship-year",
+          "data_type": "Int64",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\Sample - Superstore.xlsx\"), null, true),\n    Orders_Sheet = Source{[Item=\"Orders\",Kind=\"Sheet\"]}[Data],\n    #\"Promoted Headers\" = Table.PromoteHeaders(Orders_Sheet, [PromoteAllScalars=true]),\n    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Row ID\", Int64.Type}, {\"Order ID\", type text}, {\"Order Date\", type date}, {\"Ship Date\", type date}, {\"Ship Mode\", type text}, {\"Customer ID\", type text}, {\"Customer Name\", type text}, {\"Segment\", type text}, {\"Country\", type text}, {\"City\", type text}, {\"State\", type text}, {\"Postal Code\", Int64.Type}, {\"Region\", type text}, {\"Product ID\", type text}, {\"Category\", type text}, {\"Sub-Category\", type text}, {\"Product Name\", type text}, {\"Sales\", type number}, {\"Quantity\", Int64.Type}, {\"Discount\", type number}, {\"Profit\", type number}}),\n    #\"Merged Queries\" = Table.NestedJoin(#\"Changed Type\", {\"Order ID\"}, Returns, {\"Order ID\"}, \"Returns\", JoinKind.LeftOuter),\n    #\"Appended Query\" = Table.Combine({#\"Merged Queries\", Returns})\nin\n    #\"Appended Query\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "People",
+      "columns": [
+        {
+          "name": "Person",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Region",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\Sample - Superstore.xlsx\"), null, true),\n    People_Sheet = Source{[Item=\"People\",Kind=\"Sheet\"]}[Data],\n    #\"Changed Type\" = Table.TransformColumnTypes(People_Sheet,{{\"Column1\", type text}, {\"Column2\", type text}}),\n    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),\n    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Person\", type text}, {\"Region\", type text}})\nin\n    #\"Changed Type1\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    },
+    {
+      "name": "Returns",
+      "columns": [
+        {
+          "name": "Returned",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        },
+        {
+          "name": "Order ID",
+          "data_type": "string",
+          "source_column": null,
+          "is_hidden": false
+        }
+      ],
+      "m_query": "let\n    Source = Excel.Workbook(File.Contents(\"C:\\Users\\v-vmood\\Downloads\\Sample - Superstore.xlsx\"), null, true),\n    Returns_Sheet = Source{[Item=\"Returns\",Kind=\"Sheet\"]}[Data],\n    #\"Changed Type\" = Table.TransformColumnTypes(Returns_Sheet,{{\"Column1\", type text}, {\"Column2\", type text}}),\n    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),\n    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Returned\", type text}, {\"Order ID\", type text}})\nin\n    #\"Changed Type1\"",
+      "source_type": "Excel",
+      "is_calculated_table": false,
+      "calculated_table_dax": null
+    }
+  ],
+  "measures": [
+    {
+      "name": "Total_sales",
+      "table": "Orders",
+      "expression": "CALCULATE(SUM(Orders[Sales]))",
+      "format_string": null,
+      "is_hidden": false
+    },
+    {
+      "name": "total profit",
+      "table": "Orders",
+      "expression": "SUMX(Orders,Orders[Sales]*Orders[Quantity])",
+      "format_string": null,
+      "is_hidden": false
+    },
+    {
+      "name": "% of sales",
+      "table": "Orders",
+      "expression": "SUM(Orders[Sales])/CALCULATE([Total_sales],ALLEXCEPT(Orders,Orders[Category]))",
+      "format_string": null,
+      "is_hidden": false
+    },
+    {
+      "name": "T_S",
+      "table": "Orders",
+      "expression": "CALCULATE(SUM(Orders[Sales]),ALLSELECTED(Orders[Product ID]))",
+      "format_string": null,
+      "is_hidden": false
+    }
+  ],
+  "calculated_columns": [
+    {
+      "name": "Year",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "YEAR([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "MonthNo",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "MONTH([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Month",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "FORMAT([Date], \"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "QuarterNo",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "INT(([MonthNo] + 2) / 3)",
+      "data_type": "string"
+    },
+    {
+      "name": "Quarter",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "\"Qtr \" & [QuarterNo]",
+      "data_type": "string"
+    },
+    {
+      "name": "Day",
+      "table": "DateTableTemplate_da22990f-3472-4e8e-8d86-67d1afd886d4",
+      "expression": "DAY([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Year",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "YEAR([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "MonthNo",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "MONTH([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Month",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "FORMAT([Date], \"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "QuarterNo",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "INT(([MonthNo] + 2) / 3)",
+      "data_type": "string"
+    },
+    {
+      "name": "Quarter",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "\"Qtr \" & [QuarterNo]",
+      "data_type": "string"
+    },
+    {
+      "name": "Day",
+      "table": "LocalDateTable_0c4308ec-9a95-49eb-8c39-42a460cbdbc9",
+      "expression": "DAY([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Year",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "YEAR([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "MonthNo",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "MONTH([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Month",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "FORMAT([Date], \"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "QuarterNo",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "INT(([MonthNo] + 2) / 3)",
+      "data_type": "string"
+    },
+    {
+      "name": "Quarter",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "\"Qtr \" & [QuarterNo]",
+      "data_type": "string"
+    },
+    {
+      "name": "Day",
+      "table": "LocalDateTable_5c4bc1a7-205c-45c1-8ad9-334e6e838be3",
+      "expression": "DAY([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Year",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "YEAR([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "MonthNo",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "MONTH([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Month",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "FORMAT([Date], \"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "QuarterNo",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "INT(([MonthNo] + 2) / 3)",
+      "data_type": "string"
+    },
+    {
+      "name": "Quarter",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "\"Qtr \" & [QuarterNo]",
+      "data_type": "string"
+    },
+    {
+      "name": "Day",
+      "table": "LocalDateTable_b65b12a5-3c2c-4097-a7df-323947f7f1ac",
+      "expression": "DAY([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Year",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "YEAR([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "MonthNo",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "MONTH([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Month",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "FORMAT([Date], \"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "QuarterNo",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "INT(([MonthNo] + 2) / 3)",
+      "data_type": "string"
+    },
+    {
+      "name": "Quarter",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "\"Qtr \" & [QuarterNo]",
+      "data_type": "string"
+    },
+    {
+      "name": "Day",
+      "table": "LocalDateTable_e5cea050-b571-45b1-9c43-cdc1e068ae5a",
+      "expression": "DAY([Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Adress",
+      "table": "Orders",
+      "expression": "Orders[City]&\",\"& Orders[State]&\",\"&Orders[Country]",
+      "data_type": "string"
+    },
+    {
+      "name": "C & S_C",
+      "table": "Orders",
+      "expression": "Orders[Category]&\",\"&Orders[Sub-Category]",
+      "data_type": "string"
+    },
+    {
+      "name": "Order_Month",
+      "table": "Orders",
+      "expression": "MONTH(Orders[Order Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Order_Month Name",
+      "table": "Orders",
+      "expression": "FORMAT(Orders[Order Date],\"MMMM\")",
+      "data_type": "string"
+    },
+    {
+      "name": "Order_Year",
+      "table": "Orders",
+      "expression": "YEAR(Orders[Order Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "ship month",
+      "table": "Orders",
+      "expression": "MONTH(Orders[Ship Date].[Date])",
+      "data_type": "string"
+    },
+    {
+      "name": "Ship-year",
+      "table": "Orders",
+      "expression": "YEAR(Orders[Ship Date].[Date])",
+      "data_type": "string"
+    }
+  ],
+  "relationships": []
+}

@@ -1,0 +1,10 @@
+.env
+.test-work/
+.pytest_cache/
+__pycache__/
+**/__pycache__/
+output/
+uploads/
+data/
+tests/
+*.pbix

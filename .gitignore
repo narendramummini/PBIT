@@ -1,0 +1,15 @@
+.env
+.env.*
+**/.env
+**/.env.*
+
+appsettings.json
+**/appsettings.json
+
+bin/
+obj/
+node_modules/
+dist/
+.vscode/
+*.user
+*.suo
